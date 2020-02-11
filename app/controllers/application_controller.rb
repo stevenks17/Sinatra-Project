@@ -13,42 +13,6 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
-  get "/signup" do
-    erb :signup
-  end
-
-  post "/signup" do
-    if params[:username] == "" || params[:password] == ""
-      redirect '/failure'
-    else
-      User.create(username: params[:username], password: params[:password])
-      redirect '/signup'
-    end
-  end
-
-  get "/login" do
-    erb :login
-  end
-
-  post "/login" do
-    @user = User.find_by(username: params[:username])
-    if @user && @user.authenticate(params[:password])
-      session[:user_id] = @user.id
-      redirect to "/signup"
-    else
-      redirect to "/failure"
-    end
-  end
-
-  get "/failure" do
-    erb :failure
-  end
-
-  get "/logout" do
-    session.clear
-    redirect "/"
-  end
-
   helpers do
     def logged_in?
       !!session[:user_id]
@@ -57,7 +21,30 @@ class ApplicationController < Sinatra::Base
     def current_user
       User.find(session[:user_id])
     end
+   end
+    
+    def authorized_to_edit?(review_info)
+     review_info.user == current_user
+    end
+
+
+    def redirect_if_not_logged_in
+     if !logged_in?
+       flash[:errors] = "You must be logged in to view the page you tried to view."
+       redirect '/'
+     end
+   end
+
+    def redirect_if_logged_in
+     if logged_in?
+      redirect "/users/#{current_user.id}"
+    end
   end
+
+
+ # def build_review(review_info)
+   # new_review = 
+  #end
 
 end
 
