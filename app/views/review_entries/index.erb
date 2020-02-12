@@ -1,8 +1,8 @@
 ALL REVIEW ENTRIES
-<% @review_entries.each do |review_entry| %>
-  <h4><a href="/review_entries/<%= review_entry.id %>"><%= review_entry.created_at %></a></h4>
-  <strong><%= review_entry.title %></strong>
-  <p><%= review_entry.content %></p>
-  <p>By <%= review_entry.user.name %></p>
+<% @review_entries.each do |review_info| %>
+  <h4><a href="/review_entries/<%= review_info.id %>"><%= review_info.created_at %></a></h4>
+  <strong><%= review_info.title %></strong>
+  <p><%= review_info.content %></p>
+  <p>By <%= review_info.user.name %></p>
   <br><br>
 <% end %>

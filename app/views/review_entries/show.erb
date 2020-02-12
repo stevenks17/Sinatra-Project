@@ -2,18 +2,18 @@ SHOW REVIEW ENTRY
 
 
 
-<h3><%= @review_entry.title %></h3>
-<p><%= @review_entry.content %></p>
+<h3><%= @review_info.title %></h3>
+<p><%= @review_info.content %></p>
 
-<p>Created by: <%= @review_entry.user.name %></p>
+<p>Created by: <%= @review_info.user.name %></p>
 
-<p>created on <%= @review_entry.formatted_created_at %></p>
+<p>created on <%= @review_info.formatted_created_at %></p>
 
 
-<% if authorized_to_edit?(@review_entry) %>
-  <a href="/review_entries/<%= @review_entry.id %>/edit">Edit Review</a>
+<% if authorized_to_edit?(@review_info) %>
+  <a href="/review_entries/<%= @review_info.id %>/edit">Edit Review</a>
   <br><br>
-  <form class="" action="/review_entries/<%= @review_entry.id %>" method="post">
+  <form class="" action="/review_entries/<%= @review_info.id %>" method="post">
     <input type="hidden" name="_method" value="DELETE">
     <input type="submit" name="" value="Delete this Review">
   </form>
