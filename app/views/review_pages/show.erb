@@ -1,11 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+
+<h3><%= @review_entry.title %></h3>
+<p><%= @review_entry.content %></p>
+
+<p>Created by: <%= @review_entry.user.name %></p>
+
+<p>created on <%= @review_entry.formatted_created_at %></p>
+
+
+<% if authorized_to_edit?(@review_entry) %>
+  <a href="/review_entries/<%= @review_entry.id %>/edit">Edit Review</a>
+  <br><br>
+  <form class="" action="/review_entries/<%= @review_entry.id %>" method="post">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" name="" value="Delete this Review">
+  </form>
+<% end %>
