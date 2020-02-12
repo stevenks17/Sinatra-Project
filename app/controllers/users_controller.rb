@@ -26,6 +26,23 @@ class UsersController < ApplicationController
         redirect to "/failure"
       end
     end
+
+  post 'users' do
+    @user = User.new(params)
+    if @user.save
+      session[:user_id] = @user.id
+      redirect "/users/#{@user.id}"
+    else
+      redirect '/signup'
+    end
+  end
+  
+  get '/users/:id' do
+    @user = User.find_by(id: params[:id])
+    redirect_if_not_logged_in
+    erb :'/users/show'
+  end
+
     
   get "/failure" do
     erb :failure
