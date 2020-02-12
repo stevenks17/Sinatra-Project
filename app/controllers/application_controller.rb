@@ -30,7 +30,6 @@ class ApplicationController < Sinatra::Base
 
     def redirect_if_not_logged_in
      if !logged_in?
-       flash[:errors] = "You must be logged in to view the page you tried to view."
        redirect '/'
      end
    end
@@ -40,11 +39,10 @@ class ApplicationController < Sinatra::Base
       redirect "/users/#{current_user.id}"
     end
   end
+ 
 
 
- # def build_review(review_info)
-   # new_review = 
-  #end
+
 
 end
 

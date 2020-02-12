@@ -1,3 +1,5 @@
+
+
 class ReviewsController < ApplicationController
 
     get '/review_entries' do 
@@ -13,7 +15,7 @@ class ReviewsController < ApplicationController
     post 'review_entries' do
         redirect_if_not_logged_in
         if params[:content] != ""
-            @review_entry = Review.create(content: params[:content], user_id: current_user.id)
+            @review_entry = Review.create(content: params[:content], user_id: current_user.id, title: params[:title])
             redirect "review_entries/#{@review_entry.id}"
         else
             redirect 'review_entries/new'
