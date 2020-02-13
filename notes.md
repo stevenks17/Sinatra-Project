@@ -26,7 +26,8 @@ Controller Bugs:
 Signup goes to error now?
 Delete goes to error(does not delete review)?
 Edit does not go anywhere?
-Review Entries Show Page does not show contents?
+Review Entries Show Page does not show contents or allow content to be edited.
+
 
 
 

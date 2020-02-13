@@ -7,7 +7,7 @@ end
 
 
 
-
+use Rack::MethodOverride
 use UsersController
 use ReviewsController
 run ApplicationController

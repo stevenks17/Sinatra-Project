@@ -1,4 +1,4 @@
-
+require 'pry'
 
 class ReviewsController < ApplicationController
 
@@ -16,6 +16,7 @@ class ReviewsController < ApplicationController
         redirect_if_not_logged_in
         if params[:content] != ""
             @review_info = Review.create(content: params[:content], user_id: current_user.id, title: params[:title])
+            #binding.pry
             redirect "review_entries/#{@review_info.id}"
         else
             redirect 'review_entries/new'
@@ -35,7 +36,7 @@ class ReviewsController < ApplicationController
   
     end
 
-    patch '/review_entries/:id' do
+    patch '/review_entries/:id/edit' do
         redirect_if_not_logged_in
         set_review_info
         authorized_to_edit?(@review_info)
@@ -62,9 +63,7 @@ class ReviewsController < ApplicationController
         @review_info = Review.find_by_id(params[:id])
     end
 
-    def authorized_to_edit?(review_info)
-        redirect '/' unless review_info.user_id == current_user.id
-    end
+
    
     
 end

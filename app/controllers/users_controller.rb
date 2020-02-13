@@ -23,7 +23,7 @@ class UsersController < ApplicationController
     
 
 
-  post 'users' do
+  post '/signup' do
     @user = User.new(params)
     if @user.save
       session[:user_id] = @user.id

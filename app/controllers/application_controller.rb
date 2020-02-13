@@ -19,7 +19,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      User.find(session[:user_id])
+      User.find_by_id(session[:user_id])
     end
    end
     
@@ -35,12 +35,15 @@ class ApplicationController < Sinatra::Base
      if logged_in?
       redirect "/users/#{current_user.id}"
     end
-  end
+  
+ 
  
 
+  end
 
-
-
+  def authorized_to_edit?(review_info)
+    redirect '/' unless review_info.user_id == current_user.id
+  end
 end
 
 
