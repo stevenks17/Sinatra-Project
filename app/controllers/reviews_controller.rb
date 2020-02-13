@@ -22,32 +22,49 @@ class ReviewsController < ApplicationController
         end
     end
 
+    get '/review_entries/:id' do
+        set_review_info
+        erb :'/review_entries/show'
+    end
+
     get '/review_entries/:id/edit' do
         redirect_if_not_logged_in
-        set_review_entry
-        if @review_info == current_user && params[:content] != ""
-            @review_info.update(content: params[:content])
+        set_review_info
+        authorized_to_edit?(@review_info)
+        erb :'review_entries/edit'
+  
+    end
+
+    patch '/review_entries/:id' do
+        redirect_if_not_logged_in
+        set_review_info
+        authorized_to_edit?(@review_info)
+
+        if @review_info.update(params[:content])
             redirect "/review_entries/#{@review_info.id}"
         else
-            redirect "users/#{current_user.id}"
+            erb :"review_entries/edit"
         end
     end
 
     delete '/review_entries/:id' do
-        set_review_entry
+        set_review_info
         if authorized_to_edit?(@review_info)
             @review_info.destroy
-            redirect '/review_entries'
+            redirect '/review_entries/show'
         else
-            redirect '/review_entries'
+            redirect '/review_entries/show'
         end
     end
 
-    private
-
-    def set_review_entry
-        @review_info = Review.find(params[:id])
+    
+    def set_review_info
+        @review_info = Review.find_by_id(params[:id])
     end
 
+    def authorized_to_edit?(review_info)
+        redirect '/' unless review_info.user_id == current_user.id
+    end
+   
     
 end

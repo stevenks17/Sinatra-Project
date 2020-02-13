@@ -23,9 +23,6 @@ class ApplicationController < Sinatra::Base
     end
    end
     
-    def authorized_to_edit?(review_info)
-     review_info.user == current_user
-    end
 
 
     def redirect_if_not_logged_in
