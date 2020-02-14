@@ -34,12 +34,12 @@ class ReviewsController < ApplicationController
   
     end
 
-    patch '/review_entries/:id/edit' do
+    patch '/review_entries/:id' do
         redirect_if_not_logged_in
         set_review_info(params[:id])
         authorized_to_edit?(@review_info)
 
-        if @review_info.update(params[:content])
+        if @review_info.update(content: params[:content], title: params[:title])
             redirect "/review_entries/#{@review_info.id}"
         else
             erb :"review_entries/edit"
@@ -48,15 +48,14 @@ class ReviewsController < ApplicationController
 
     delete '/review_entries/:id' do
         set_review_info(params[:id])
-        if authorized_to_edit?(@review_info)
-            @review_info.destroy
-            redirect '/review_entries/show'
-        else
-            redirect '/review_entries/show'
-        end
+        authorized_to_edit?(@review_info)
+
+        @review_info.destroy
+        redirect "/users/#{@review_info.id}"
+      
     end
 
-    
+   
 
     
     def set_review_info(id)

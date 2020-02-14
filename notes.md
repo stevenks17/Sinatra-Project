@@ -1,9 +1,9 @@
 User
 ---
 has_many :reviews ***
-User can edit own reviews 
+User can edit own reviews ***
 Users can view anyones reviews
-User can delete own reviews only
+User can delete own reviews only **
 
 Reviews
 ---
@@ -23,12 +23,8 @@ Bugs
 ---
 Controller Bugs:
 
-Signup goes to error now? ###
-Delete goes to error(does not delete review)?
-Edit does not go anywhere?
-Review Entries Show Page does not show contents ###
- or allow content to be edited. ###
-
+Viewing other peoples reviews redirects to index?
+Delete works but does not redirect correctly?
 
 
 
