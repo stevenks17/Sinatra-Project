@@ -22,13 +22,13 @@ class ReviewsController < ApplicationController
     end
 
     get '/review_entries/:id' do
-        set_review_info
+        set_review_info(params[:id])
         erb :'/review_entries/show'
     end
 
     get '/review_entries/:id/edit' do
         redirect_if_not_logged_in
-        set_review_info
+        set_review_info(params[:id])
         authorized_to_edit?(@review_info)
         erb :'review_entries/edit'
   
@@ -36,7 +36,7 @@ class ReviewsController < ApplicationController
 
     patch '/review_entries/:id/edit' do
         redirect_if_not_logged_in
-        set_review_info
+        set_review_info(params[:id])
         authorized_to_edit?(@review_info)
 
         if @review_info.update(params[:content])
@@ -47,7 +47,7 @@ class ReviewsController < ApplicationController
     end
 
     delete '/review_entries/:id' do
-        set_review_info
+        set_review_info(params[:id])
         if authorized_to_edit?(@review_info)
             @review_info.destroy
             redirect '/review_entries/show'
@@ -57,8 +57,10 @@ class ReviewsController < ApplicationController
     end
 
     
-    def set_review_info
-        @review_info = Review.find_by_id(params[:id])
+
+    
+    def set_review_info(id)
+        @review_info = Review.find_by(id: id)
     end
 
 
