@@ -1,4 +1,6 @@
-ALL REVIEW ENTRIES
+<h2>ALL REVIEW ENTRIES</h2>
+<br>
+
 <% @review_entries.each do |review_info| %>
   <h4><a href="/review_entries/<%= review_info.id %>"><%= review_info.created_at %></a></h4>
   <strong><%= review_info.title %></strong>

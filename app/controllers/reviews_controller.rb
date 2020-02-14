@@ -1,4 +1,3 @@
-require 'pry'
 
 class ReviewsController < ApplicationController
 
@@ -16,7 +15,6 @@ class ReviewsController < ApplicationController
         redirect_if_not_logged_in
         if params[:content] != ""
             @review_info = Review.create(content: params[:content], user_id: current_user.id, title: params[:title])
-            #binding.pry
             redirect "review_entries/#{@review_info.id}"
         else
             redirect 'review_entries/new'
