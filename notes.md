@@ -14,7 +14,7 @@ Reviews will show who posted the review ***
 Design
 ---
 layout can have login logout ***
-
+Might be better to merge show pages and have functionality be on review_entries/show not user/show so we have single purpose.
 
 
 
