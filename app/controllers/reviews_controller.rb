@@ -31,6 +31,8 @@ class ReviewsController < ApplicationController
         set_review_info(params[:id])
         authorized_to_edit?(@review_info)
         erb :'review_entries/edit'
+      
+
   
     end
 
@@ -48,10 +50,14 @@ class ReviewsController < ApplicationController
 
     delete '/review_entries/:id' do
         set_review_info(params[:id])
-        authorized_to_edit?(@review_info)
+      if authorized_to_edit?(@review_info)
 
         @review_info.destroy
-        redirect "/users/#{@review_info.id}"
+        redirect "/review_entries/#{@review_info.id}"
+      else
+        redirect "/review_entries"
+      end
+
       
     end
 

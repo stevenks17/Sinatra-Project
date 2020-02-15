@@ -23,6 +23,9 @@
         <a href="/review_entries">All Reviews</a>
         
         <a href="/users/<%=current_user.id%>">My Reviews</a>
+
+       <h4> Current User: <%= current_user ? current_user.username.capitalize : "None" %></h4>
+
       <% end %>
     </div>
     <div class="wrapper">
