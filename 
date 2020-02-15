@@ -1,0 +1,15 @@
+
+[1mFrom:[0m /mnt/c/Users/Steven/development/projects/sinatra-project/app/controllers/reviews_controller.rb @ line 33 self.GET /review_entries/:id:
+
+    [1;34m28[0m: 
+    [1;34m29[0m:         erb [33m:[1;33m'[0m[33m/review_entries/user_reviews[1;33m'[0m[33m[0m
+    [1;34m30[0m:     [32mend[0m
+    [1;34m31[0m:  [1;34m#binding.pry[0m
+    [1;34m32[0m:     get [31m[1;31m'[0m[31m/review_entries/:id[1;31m'[0m[31m[0m [32mdo[0m
+ => [1;34m33[0m:        binding.pry
+    [1;34m34[0m:         set_review_info
+    [1;34m35[0m:         erb [33m:[1;33m'[0m[33m/review_entries/show[1;33m'[0m[33m[0m
+    [1;34m36[0m:     [32mend[0m
+    [1;34m37[0m: 
+    [1;34m38[0m:     get [31m[1;31m'[0m[31m/review_entries/:id/edit[1;31m'[0m[31m[0m [32mdo[0m
+

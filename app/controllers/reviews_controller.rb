@@ -11,6 +11,8 @@ class ReviewsController < ApplicationController
         erb :'review_entries/new'
     end
 
+    
+
     post '/review_entries' do
         redirect_if_not_logged_in
         if params[:content] != ""
@@ -21,14 +23,21 @@ class ReviewsController < ApplicationController
         end
     end
 
+    get '/review_entries/user_reviews' do
+        set_review_info
+
+        erb :'/review_entries/user_reviews'
+    end
+ 
     get '/review_entries/:id' do
-        set_review_info(params[:id])
+        set_review_info
+        #binding.pry
         erb :'/review_entries/show'
     end
 
     get '/review_entries/:id/edit' do
         redirect_if_not_logged_in
-        set_review_info(params[:id])
+        set_review_info
         authorized_to_edit?(@review_info)
         erb :'review_entries/edit'
       
@@ -38,7 +47,7 @@ class ReviewsController < ApplicationController
 
     patch '/review_entries/:id' do
         redirect_if_not_logged_in
-        set_review_info(params[:id])
+        set_review_info
         authorized_to_edit?(@review_info)
 
         if @review_info.update(content: params[:content], title: params[:title])
@@ -49,24 +58,26 @@ class ReviewsController < ApplicationController
     end
 
     delete '/review_entries/:id' do
-        set_review_info(params[:id])
-      if authorized_to_edit?(@review_info)
-
-        @review_info.destroy
-        redirect "/review_entries/#{@review_info.id}"
-      else
-        redirect "/review_entries"
-      end
+        Review.find_by_id(params[:id])
+        @user =current_user
+        @review_info = Review.find(params[:id])
+        if @user.id != @review_info.user.id
+            redirect to "/review_entries/#{@review_info.id}"
+        else
+         @review_info.destroy
+         redirect "/review_entries"
+        end
+      
 
       
     end
 
    
 
-    
-    def set_review_info(id)
-        @review_info = Review.find_by(id: id)
+    def set_review_info
+        @review_info ||= Review.find_by(id: params[:id])
     end
+   
 
 
    
