@@ -38,9 +38,13 @@ class ReviewsController < ApplicationController
     get '/review_entries/:id/edit' do
         redirect_if_not_logged_in
         set_review_info
-        authorized_to_edit?(@review_info)
-        erb :'review_entries/edit'
-      
+        if authorized_to_edit?(@review_info)
+         erb :'review_entries/edit'
+        else
+         redirect "/review_entries/#{@review_info.id}"
+        end
+
+          
 
   
     end
@@ -48,7 +52,7 @@ class ReviewsController < ApplicationController
     patch '/review_entries/:id' do
         redirect_if_not_logged_in
         set_review_info
-        authorized_to_edit?(@review_info)
+        
 
         if @review_info.update(content: params[:content], title: params[:title])
             redirect "/review_entries/#{@review_info.id}"
