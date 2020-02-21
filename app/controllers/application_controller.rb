@@ -41,9 +41,11 @@ class ApplicationController < Sinatra::Base
  
 
   end
-  def authorized_to_edit?(review_info)
-    set_review_info
-    current_user.id == @review_info.user.id
+  def authorized?(record)
+    
+    if current_user.id == record.user.id
+      redirect '/'
+    end
      
     
   end
