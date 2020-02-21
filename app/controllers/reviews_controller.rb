@@ -1,18 +1,21 @@
 
 class ReviewsController < ApplicationController
+    
 
+    #READ
     get '/review_entries' do 
-        @review_entries = Review.all
-        erb :'review_entries/index'
+     @review_entries = Review.all
+     erb :'review_entries/index'
     end
-
+    
+    #CREATE
     get '/review_entries/new' do
-        redirect_if_not_logged_in
-        erb :'review_entries/new'
+     redirect_if_not_logged_in
+     erb :'review_entries/new'
     end
 
     
-
+    #CREATE 
     post '/review_entries' do
         redirect_if_not_logged_in
         if params[:content] != ""
@@ -22,64 +25,40 @@ class ReviewsController < ApplicationController
             redirect 'review_entries/new'
         end
     end
+    
 
-    get '/review_entries/user_reviews' do
-        set_review_info
-
-        erb :'/review_entries/user_reviews'
-    end
- 
+     #READ
     get '/review_entries/:id' do
-        set_review_info
-        #binding.pry
-        erb :'/review_entries/show'
+     set_review_info
+     erb :'/review_entries/show'
     end
 
+    #UPDATE
     get '/review_entries/:id/edit' do
-        redirect_if_not_logged_in
-        set_review_info
-        if authorized_to_edit?(@review_info)
-         erb :'review_entries/edit'
-        else
-         redirect "/review_entries/#{@review_info.id}"
-        end
-
-          
-
-  
+     set_review_info
+     authorized?(@review_info)
+     erb :'review_entries/edit'
     end
 
+    #UPDATE
     patch '/review_entries/:id' do
-        redirect_if_not_logged_in
-        set_review_info
-        
-
-        if @review_info.update(content: params[:content], title: params[:title])
-            redirect "/review_entries/#{@review_info.id}"
-        else
-            erb :"review_entries/edit"
-        end
+     set_review_info
+     authorized?(@review_info)
+     @review_info.update(params)
     end
 
+   #DELETE
     delete '/review_entries/:id' do
-        Review.find_by_id(params[:id])
-        @user =current_user
-        @review_info = Review.find(params[:id])
-        if @user.id != @review_info.user.id
-            redirect to "/review_entries/#{@review_info.id}"
-        else
-         @review_info.destroy
-         redirect "/review_entries"
-        end
-      
-
-      
+     set_review_info
+     authorized?(@review_info)
+     @review_info.destroy
+     redirect '/'
     end
 
    
 
     def set_review_info
-        @review_info ||= Review.find_by(id: params[:id])
+     @review_info ||= Review.find_by(id: params[:id])
     end
    
 

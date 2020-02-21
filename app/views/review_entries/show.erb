@@ -11,7 +11,7 @@
 
 
 
-<% if authorized_to_edit?(@review_info) %>
+<% if authorized?(@review_info) %>
   <a href="/review_entries/<%= @review_info.id %>/edit">Edit Review</a>
   <br><br>
   <form class="" action="/review_entries/<%= @review_info.id %>" method="post">

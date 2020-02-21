@@ -32,7 +32,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect "/users/#{@user.id}"
     else
-      redirect '/signup'
+      redirect '/review_entries'
     end
   end
   

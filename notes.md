@@ -31,3 +31,12 @@ Delete works but does not redirect correctly?
 Stretch Goals
 ---
 stretch feature users can comment on movie reviews
+
+
+Assesment Code
+-----
+
+Create a technical blog in the terms of logging in and logging out.
+Touch a little bit on has secure password. How you authorize a user.
+Encryption. Why we use session hash to persist user. As opposed to instance variable. In terms of HTTP being stateless protocol.
+Write a Readme.
