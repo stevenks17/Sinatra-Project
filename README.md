@@ -16,7 +16,7 @@ shotgun
 
 ## Usage
 
-The web app can be used as a base domain to create a application that will accept user input and show user input giving the ability to edit or delete their reviews solely to the object creator.
+The web app can be used as a base domain to create a application that will accept user input and show user input giving the ability to edit or delete their input solely to the object creator.
 
 ## Roadmap
 
